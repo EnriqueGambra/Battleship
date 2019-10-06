@@ -18,8 +18,9 @@ public class BattleShip {
     public static void mainGame(){
         
         Scanner myObj = new Scanner(System.in);
+        int shipsActiveCounter = cpuShips.length;
         
-        while(cpuShips.length > 0){
+        while(shipsActiveCounter > 0){
             System.out.println("Enter in a guess in the format #,#");
             String guess = myObj.nextLine();
             
@@ -35,16 +36,23 @@ public class BattleShip {
                 }
                 else{
                     System.out.println(result);
+                    
+                    if(result.endsWith("sunk!")){
+                        shipsActiveCounter -= 1;
+                    }
                     break;
                 }
             }
         }
         
+        System.out.println("All ships have been sunk! Ending the game.");
+        
     }
     
     public static void cpuCreateShips(Ship[] ships){
         for(int i = 0; i < ships.length; i++){
-            ships[i] = new Ship(rows, columns, "Ship #"+i);
+            int name = i +1;
+            ships[i] = new Ship(rows, columns, "Ship #" + name);
             ships[i].createShip();
             ships[i].showCoordinates();
         }
