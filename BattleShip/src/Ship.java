@@ -7,9 +7,11 @@ public class Ship {
     private String name;
     private String[] coordinates = new String[3];
     private int rows, columns;
-    public Ship(int rows, int columns){
+    
+    public Ship(int rows, int columns, String name){
         this.rows = rows;
         this.columns = columns;
+        this.name = name;
     }
     
     public void createShip(){
@@ -54,13 +56,10 @@ public class Ship {
                 }
             }
         }
-        
-        for(int i = 0; i < coordinates.length; i++)
-        {
-            System.out.println(coordinates[i]);
-        }
     }
     
+    //Randomly generates a coordinate value. If coordinate value already
+    //in place, will add one more to the x or y value.
     public int createCoordinate(int coordinate)
     {
         int value;
@@ -71,12 +70,44 @@ public class Ship {
         else{
             value = coordinate + 1;
         }
-        
         return value;
     }
     
-    public String[] getCoordinates()
+    // Method that checks to see if a ship was hit. 
+    public String checkHit(String guess)
     {
-        return coordinates;
+        for(int i = 0; i < coordinates.length; i++)
+        {
+            if(guess == coordinates[i])
+            {
+                coordinates[i] = null;
+                boolean shipSunk = checkShipSunk();
+                
+                if(shipSunk){
+                    return this.name + " has been sunk!";
+                }
+                
+                return "Hit";
+            }
+        }
+        return "Miss";
+    }
+    
+    //Checks to see if a ship has been sunk
+    public boolean checkShipSunk(){
+        int partsSunk = 0;
+        for(int i = 0; i < coordinates.length; i++)
+        {
+            if(coordinates[i] == null){
+                partsSunk += 1;
+            }
+        }
+        
+        if(partsSunk == 3)
+        {
+            return true;
+        }
+        
+        return false;
     }
 }
