@@ -6,9 +6,10 @@ public class Ship {
     
     private String name;
     private String[] coordinates = new String[3];
-    
-    public Ship(){
-        
+    private int rows, columns;
+    public Ship(int rows, int columns){
+        this.rows = rows;
+        this.columns = columns;
     }
     
     public void createShip(){
@@ -19,7 +20,7 @@ public class Ship {
         // Chooses if the x coordinate or the y coordinate is consistent
         int xOrY = (int)(Math.random() * ((2 - 1)+1) + 1);
         //Generates a constant coordinate for either the x or y value
-        int constantCoordinate = (int)(Math.random() * ((6 - 0)+ 1)+ 0);
+        int constantCoordinate = (int)(Math.random() * (((rows-1) - 0)+ 1)+ 0);
         
         //Sets the value of constant coordinate to the x or y value
         if(xOrY == 1){
@@ -65,12 +66,17 @@ public class Ship {
         int value;
         if(coordinate == -1)
         {
-            value = (int)(Math.random() * ((4 - 0) + 1) + 0);
+            value = (int)(Math.random() * (((rows-3) - 0) + 1) + 0);
         }
         else{
             value = coordinate + 1;
         }
         
         return value;
+    }
+    
+    public String[] getCoordinates()
+    {
+        return coordinates;
     }
 }
