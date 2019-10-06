@@ -11,8 +11,13 @@ public class BattleShip {
     
     public static void main(String[] args) {
         
-        Scanner myObj = new Scanner(System.in);
         cpuCreateShips(cpuShips);
+        mainGame();
+    }
+    
+    public static void mainGame(){
+        
+        Scanner myObj = new Scanner(System.in);
         
         while(cpuShips.length > 0){
             System.out.println("Enter in a guess in the format #,#");
@@ -21,17 +26,20 @@ public class BattleShip {
             for(int i = 0; i < cpuShips.length; i++){
                 String result = cpuShips[i].checkHit(guess);
                 
-                if(result.equals("Miss"))
+                if(result.equals("Miss") && i != cpuShips.length - 1)
                 {
                     continue;
+                }
+                else if(result.equals("Miss") && i == cpuShips.length -1){
+                    System.out.println("Miss");
                 }
                 else{
                     System.out.println(result);
                     break;
                 }
-                
             }
         }
+        
     }
     
     public static void cpuCreateShips(Ship[] ships){
