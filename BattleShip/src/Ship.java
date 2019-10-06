@@ -78,7 +78,7 @@ public class Ship {
     {
         for(int i = 0; i < coordinates.length; i++)
         {
-            if(guess == coordinates[i])
+            if(guess.equals(coordinates[i]))
             {
                 coordinates[i] = null;
                 boolean shipSunk = checkShipSunk();
@@ -109,5 +109,11 @@ public class Ship {
         }
         
         return false;
+    }
+    
+    public void showCoordinates(){
+        for(int i = 0; i < coordinates.length; i++){
+            System.out.println(coordinates[i]);
+        }
     }
 }
