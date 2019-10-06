@@ -8,12 +8,14 @@ public class Ship {
     private String[] coordinates = new String[3];
     private int rows, columns;
     
+    //Constructor that initializes the Ship class
     public Ship(int rows, int columns, String name){
         this.rows = rows;
         this.columns = columns;
         this.name = name;
     }
     
+    //Creates a ship
     public void createShip(){
         int x = 0;
         int y = 0;
@@ -34,6 +36,7 @@ public class Ship {
             constantY = true;
         }
         
+        //For loop that continues to create coordinates until there are 3 seperate coordinates
         for(int i = 0; i < coordinates.length; i++){
             if(constantX){
                 if(i == 0){
@@ -111,6 +114,7 @@ public class Ship {
         return false;
     }
     
+    //Method for testing. Shows coordinates of a ship.
     public void showCoordinates(){
         for(int i = 0; i < coordinates.length; i++){
             System.out.println(coordinates[i]);
