@@ -15,37 +15,74 @@ public class BattleShip {
     
     //Main area of where the game is created
     public static void mainGame(){
-        
         Scanner myObj = new Scanner(System.in);
-        int shipsActiveCounter = cpuShips.length; //Gets how many ships are in the list
+        int shipsCPUActive = cpuShips.length; //Gets how many ships are in the list
+        int shipsUserActive = userShips.length;
+        int turn = 1; //Determines whose turn it is. 1 for user and -1 for CPU
         
-        while(shipsActiveCounter > 0){           //While there are ships still active, run the game logic
-            System.out.println("Enter in a guess in the format #,#");
-            String guess = myObj.nextLine();
-            
-            for(int i = 0; i < cpuShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
-                String result = cpuShips[i].checkHit(guess);
-                
-                if(result.equals("Miss") && i != cpuShips.length - 1)
-                {
-                    continue;
-                }
-                else if(result.equals("Miss") && i == cpuShips.length -1){
-                    System.out.println("Miss");
-                }
-                else{
-                    System.out.println(result);
-                    
-                    if(result.endsWith("sunk!")){
-                        shipsActiveCounter -= 1;
+        while(shipsCPUActive > 0 & shipsUserActive > 0){   //While there are ships still active, run the game logic
+            if(turn == 1){ //Users turn
+                System.out.println("Enter in a guess in the format #,#");
+                String guess = myObj.nextLine();
+
+                for(int i = 0; i < cpuShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
+                    String result = cpuShips[i].checkHit(guess);
+
+                    if(result.equals("Miss") && i != cpuShips.length - 1)
+                    {
+                        continue;
                     }
-                    break;
+                    else if(result.equals("Miss") && i == cpuShips.length -1){
+                        System.out.println("Miss");
+                    }
+                    else{
+                        System.out.println(result);
+
+                        if(result.endsWith("sunk!")){
+                            shipsCPUActive -= 1;
+                        }
+                        break;
+                    }
                 }
+                turn *= -1; //Changes turn to CPU
+            }
+            else if(turn == -1){ //CPU's turn
+                System.out.println("CPU's turn!!");
+                int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
+                int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
+                String guess = x + "," + y;
+                
+                System.out.println("The CPU guesses " + guess);
+                
+                for(int i = 0; i < userShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
+                    String result = userShips[i].checkHit(guess);
+
+                    if(result.equals("Miss") && i != userShips.length - 1)
+                    {
+                        continue;
+                    }
+                    else if(result.equals("Miss") && i == userShips.length -1){
+                        System.out.println("Miss");
+                    }
+                    else{
+                        System.out.println(result);
+
+                        if(result.endsWith("sunk!")){
+                            shipsCPUActive -= 1;
+                        }
+                        break;
+                    }
+                }
+                turn *= -1; //Changes turn to User
             }
         }
         
-        System.out.println("All ships have been sunk! Ending the game.");
-        
+        if(shipsCPUActive > 0){
+            System.out.println("All user ships have been sunk! You lose!"); 
+        }
+        else if(shipsUserActive > 0){
+            System.out.println("All CPU ships have been sunk! You Win!");
+        }
     }
     
     //Creates CPU ships
