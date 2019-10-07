@@ -22,58 +22,12 @@ public class BattleShip {
         
         while(shipsCPUActive > 0 & shipsUserActive > 0){   //While there are ships still active, run the game logic
             if(turn == 1){ //Users turn
-                System.out.println("Enter in a guess in the format #,#");
-                String guess = myObj.nextLine();
-
-                for(int i = 0; i < cpuShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
-                    String result = cpuShips[i].checkHit(guess);
-
-                    if(result.equals("Miss") && i != cpuShips.length - 1)
-                    {
-                        continue;
-                    }
-                    else if(result.equals("Miss") && i == cpuShips.length -1){
-                        System.out.println("Miss");
-                    }
-                    else{
-                        System.out.println(result);
-
-                        if(result.endsWith("sunk!")){
-                            shipsCPUActive -= 1;
-                        }
-                        break;
-                    }
-                }
+                shipsCPUActive = userTurn(shipsCPUActive); //Users turn method
                 turn *= -1; //Changes turn to CPU
             }
             else if(turn == -1){ //CPU's turn
-                System.out.println("CPU's turn!!");
-                int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
-                int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
-                String guess = x + "," + y;
-                
-                System.out.println("The CPU guesses " + guess);
-                
-                for(int i = 0; i < userShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
-                    String result = userShips[i].checkHit(guess);
-
-                    if(result.equals("Miss") && i != userShips.length - 1)
-                    {
-                        continue;
-                    }
-                    else if(result.equals("Miss") && i == userShips.length -1){
-                        System.out.println("Miss");
-                    }
-                    else{
-                        System.out.println(result);
-
-                        if(result.endsWith("sunk!")){
-                            shipsCPUActive -= 1;
-                        }
-                        break;
-                    }
-                }
-                turn *= -1; //Changes turn to User
+                shipsUserActive = CPUTurn(shipsUserActive);
+                turn *= -1;
             }
         }
         
@@ -83,6 +37,66 @@ public class BattleShip {
         else if(shipsUserActive > 0){
             System.out.println("All CPU ships have been sunk! You Win!");
         }
+    }
+    
+    public static int CPUTurn(int shipsUserActive){
+        System.out.println("CPU's turn!!");
+        int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
+        int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
+        String guess = x + "," + y;
+
+        System.out.println("The CPU guesses " + guess);
+
+        for(int i = 0; i < userShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
+            String result = userShips[i].checkHit(guess);
+
+            if(result.equals("Miss") && i != userShips.length - 1)
+            {
+                continue;
+            }
+            else if(result.equals("Miss") && i == userShips.length -1){
+                System.out.println("CPU misses");
+            }
+            else{
+                System.out.println(result);
+
+                if(result.endsWith("sunk!")){
+                    shipsUserActive -= 1;
+                }
+                break;
+            }
+        }
+        System.out.println("********************************");
+        
+        return shipsUserActive;
+    }
+    
+    public static int userTurn(int shipsCPUActive){
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Users turn! Enter in a guess in the format #,#");
+        String guess = myObj.nextLine();
+        
+        for(int i = 0; i < cpuShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
+            String result = cpuShips[i].checkHit(guess);
+
+            if(result.equals("Miss") && i != cpuShips.length - 1)
+            {
+                continue;
+            }
+            else if(result.equals("Miss") && i == cpuShips.length -1){
+                System.out.println("User misses!");
+            }
+            else{
+                System.out.println(result);
+
+                if(result.endsWith("sunk!")){
+                    shipsCPUActive -= 1;
+                }
+                break;
+            }
+        }
+        System.out.println("********************************");
+        return shipsCPUActive;
     }
     
     //Creates CPU ships
