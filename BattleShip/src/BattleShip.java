@@ -69,7 +69,6 @@ public class BattleShip {
             }
         }
         
-        System.out.println(cpuGuesses.toString());
         return guess;
     }
     
