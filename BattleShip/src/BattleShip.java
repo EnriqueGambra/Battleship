@@ -62,7 +62,7 @@ public class BattleShip {
         Scanner myObj = new Scanner(System.in);
         
         for(int i = 0; i < ships.length; i++){
-            System.out.println("Enter in the " + (i+1) + " ship's name.");
+            System.out.println("Enter in the " + (i+1) + "'s ship name.");
             String name = myObj.nextLine();
             ships[i] = new Ship(rows, columns, name);
             ships[i].createUserShip();

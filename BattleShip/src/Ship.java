@@ -66,8 +66,37 @@ public class Ship {
         for(int i = 0; i < coordinates.length; i++){
             System.out.println("Enter in the " + (i+1) + " coordinate in the form #,#");
             String coordinate = myObj.nextLine();
-            coordinates[i] = coordinate;
+            boolean isValid = checkValidityCoordinates(coordinate);
+            
+            if(isValid == true)
+            {
+                coordinates[i] = coordinate;
+            }
         }
+    }
+    
+    //Method that checks the validity of coordinates. If valid, will return true. Otherwise program will shut down
+    public boolean checkValidityCoordinates(String coordinate){
+            try{
+                boolean xIsLetter = Character.isLetter(coordinate.charAt(0));
+                boolean yIsLetter = Character.isLetter(coordinate.charAt(2));
+                
+                if(xIsLetter == true || yIsLetter == true){
+                    System.out.println("One of the characters you entered is a letter! Program shutting down!");
+                    System.exit(0);
+                }
+                
+                if(coordinate.length() > 3){
+                    System.out.println("You didn't enter in a number from 0-9. Program shutting down!");
+                    System.exit(0);
+                }
+            }
+            catch(Exception e){
+                System.out.println("You didn't enter in a number! Program shutting down!");
+                System.exit(0);
+            }
+            
+            return true;
     }
     
     //Randomly generates a coordinate value. If coordinate value already
