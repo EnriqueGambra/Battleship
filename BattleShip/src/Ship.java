@@ -1,5 +1,4 @@
-
-import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Ship {
@@ -16,7 +15,7 @@ public class Ship {
     }
     
     //Creates a ship
-    public void createShip(){
+    public void createCPUShip(){
         int x = 0;
         int y = 0;
         boolean constantX = false;
@@ -58,6 +57,16 @@ public class Ship {
                     coordinates[i] = x + "," + y;
                 }
             }
+        }
+    }
+    
+    //Method that creates user's ship. Asks for coordinates they want.
+    public void createUserShip(){
+        Scanner myObj = new Scanner(System.in);
+        for(int i = 0; i < coordinates.length; i++){
+            System.out.println("Enter in the " + (i+1) + " coordinate in the form #,#");
+            String coordinate = myObj.nextLine();
+            coordinates[i] = coordinate;
         }
     }
     

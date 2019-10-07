@@ -8,7 +8,7 @@ public class BattleShip {
     static Ship[] userShips = new Ship[3];
     
     public static void main(String[] args) {
-        
+        createUserShips(userShips);
         cpuCreateShips(cpuShips);
         mainGame();
     }
@@ -53,8 +53,19 @@ public class BattleShip {
         for(int i = 0; i < ships.length; i++){
             int name = i +1;
             ships[i] = new Ship(rows, columns, "Ship #" + name);
-            ships[i].createShip();
+            ships[i].createCPUShip();
             //ships[i].showCoordinates(); -- Testing line. Shows the ship's coordinates for tests
+        }
+    }
+    
+    public static void createUserShips(Ship[] ships){
+        Scanner myObj = new Scanner(System.in);
+        
+        for(int i = 0; i < ships.length; i++){
+            System.out.println("Enter in the " + (i+1) + " ship's name.");
+            String name = myObj.nextLine();
+            ships[i] = new Ship(rows, columns, name);
+            ships[i].createUserShip();
         }
     }
     
