@@ -37,17 +37,17 @@ public class Ship {
         
         //For loop that continues to create coordinates until there are 3 seperate coordinates
         for(int i = 0; i < coordinates.length; i++){
-            if(constantX){
+            if(constantX){ //If we have a constantX value -- create the x value on initial
                 if(i == 0){
                     y = createCoordinate(-1);
                     coordinates[i] = x + "," + y;
                 }
-                else{
-                    y = createCoordinate(Character.getNumericValue(coordinates[i-1].charAt(2)));
+                else{ //If this isn't initial, then get the value from the previous array slot and add one to it
+                    y = createCoordinate(Character.getNumericValue(coordinates[i-1].charAt(2))); 
                     coordinates[i] = x + "," + y;
                 }
             }
-            else{
+            else{ //We have a constantY value -- same things apply as to x values
                 if(i == 0){
                     x = createCoordinate(-1);
                     coordinates[i] = x + "," + y;
@@ -66,7 +66,7 @@ public class Ship {
         for(int i = 0; i < coordinates.length; i++){
             System.out.println("Enter in the " + (i+1) + " coordinate in the form #,#");
             String coordinate = myObj.nextLine();
-            boolean isValid = checkValidityCoordinates(coordinate);
+            boolean isValid = checkValidityCoordinates(coordinate);  //Check if the coordinates are valid.
             
             if(isValid == true)
             {
@@ -78,15 +78,15 @@ public class Ship {
     //Method that checks the validity of coordinates. If valid, will return true. Otherwise program will shut down
     public boolean checkValidityCoordinates(String coordinate){
             try{
-                boolean xIsLetter = Character.isLetter(coordinate.charAt(0));
+                boolean xIsLetter = Character.isLetter(coordinate.charAt(0)); //Checks to see if x and y letter is true
                 boolean yIsLetter = Character.isLetter(coordinate.charAt(2));
                 
-                if(xIsLetter == true || yIsLetter == true){
+                if(xIsLetter == true || yIsLetter == true){  //If x or y aren't digits, shuts down game
                     System.out.println("One of the characters you entered is a letter! Program shutting down!");
                     System.exit(0);
                 }
                 
-                if(coordinate.length() > 3){
+                if(coordinate.length() > 3){ //If the coordinates aren't entered in the correct format, game shuts down
                     System.out.println("You didn't enter in a number from 0-9. Program shutting down!");
                     System.exit(0);
                 }
@@ -119,10 +119,10 @@ public class Ship {
     {
         for(int i = 0; i < coordinates.length; i++)
         {
-            if(guess.equals(coordinates[i]))
+            if(guess.equals(coordinates[i])) //If the guess made equals a coordinate value, enter if statement
             {
-                coordinates[i] = null;
-                boolean shipSunk = checkShipSunk();
+                coordinates[i] = null;  //Change the value inside to null to signify it was hit
+                boolean shipSunk = checkShipSunk(); //Checks to see if the ship is sunk
                 
                 if(shipSunk){
                     return this.name + " has been sunk!";
@@ -139,12 +139,12 @@ public class Ship {
         int partsSunk = 0;
         for(int i = 0; i < coordinates.length; i++)
         {
-            if(coordinates[i] == null){
+            if(coordinates[i] == null){  //If a part in the coordinates in the array is null, the increment parts hit
                 partsSunk += 1;
             }
         }
         
-        if(partsSunk == 3)
+        if(partsSunk == 3) //If parts hit = 3, return true. Ship is sunk
         {
             return true;
         }

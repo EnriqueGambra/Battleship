@@ -41,8 +41,8 @@ public class BattleShip {
     
     public static int CPUTurn(int shipsUserActive){
         System.out.println("CPU's turn!!");
-        int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
-        int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);
+        int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);  //Randomly generates the x coordinate value
+        int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);  //Randomly generates the y coordinate value
         String guess = x + "," + y;
 
         System.out.println("The CPU guesses " + guess);
@@ -50,7 +50,7 @@ public class BattleShip {
         for(int i = 0; i < userShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
             String result = userShips[i].checkHit(guess);
 
-            if(result.equals("Miss") && i != userShips.length - 1)
+            if(result.equals("Miss") && i != userShips.length - 1) //If we aren't at the last ship in the 
             {
                 continue;
             }
@@ -79,18 +79,18 @@ public class BattleShip {
         for(int i = 0; i < cpuShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
             String result = cpuShips[i].checkHit(guess);
 
-            if(result.equals("Miss") && i != cpuShips.length - 1)
+            if(result.equals("Miss") && i != cpuShips.length - 1) //If result is miss and we still haven't gone through the entire loop, just continue
             {
                 continue;
             }
-            else if(result.equals("Miss") && i == cpuShips.length -1){
+            else if(result.equals("Miss") && i == cpuShips.length -1){ //If we have gone through the entire loop, output a miss
                 System.out.println("User misses!");
             }
             else{
                 System.out.println(result);
 
-                if(result.endsWith("sunk!")){
-                    shipsCPUActive -= 1;
+                if(result.endsWith("sunk!")){  //If a ship is sunk, output to the terminal, ship is sunk
+                    shipsCPUActive -= 1;        //Decrement ship counter
                 }
                 break;
             }
@@ -109,6 +109,7 @@ public class BattleShip {
         }
     }
     
+    //Creates the user ships
     public static void createUserShips(Ship[] ships){
         Scanner myObj = new Scanner(System.in);
         
