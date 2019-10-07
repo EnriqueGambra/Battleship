@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class BattleShip {
     
     static int rows = 10;
     static int columns = 10;
+    static ArrayList<String> cpuGuesses = new ArrayList<>();
     static Ship[] cpuShips = new Ship[3];
     static Ship[] userShips = new Ship[3];
     
@@ -39,12 +41,43 @@ public class BattleShip {
         }
     }
     
+    //Method that creates guess. If guess hasn't been used before, CPU will return
+    //the guess, otherwise it will continue to make new guesses
+    public static String CPUGuess(){
+        boolean guessedAlready = true;
+        String guess = "";
+        while(true){
+            int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);  //Randomly generates the x coordinate value
+            int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);  //Randomly generates the y coordinate value
+            guess = x + "," + y;
+            
+            if(cpuGuesses.isEmpty()){
+                cpuGuesses.add(guess);
+            }
+            
+            for(int i = 0; i < cpuGuesses.size(); i++){
+                if(cpuGuesses.get(i).equals(guess)){
+                    break;
+                }
+                else if(i == cpuGuesses.size() - 1){
+                    guessedAlready = false;
+                }
+            }
+            if(guessedAlready == false){
+                cpuGuesses.add(guess);
+                break;
+            }
+        }
+        
+        System.out.println(cpuGuesses.toString());
+        return guess;
+    }
+    
     public static int CPUTurn(int shipsUserActive){
         System.out.println("CPU's turn!!");
-        int x = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);  //Randomly generates the x coordinate value
-        int y = (int)(Math.random() * (((rows-1) - 0) + 1) + 0);  //Randomly generates the y coordinate value
-        String guess = x + "," + y;
-
+        
+        String guess = CPUGuess(); 
+        
         System.out.println("The CPU guesses " + guess);
 
         for(int i = 0; i < userShips.length; i++){   ///Checks to see if there are any hits or misses. Outputs to terminal
