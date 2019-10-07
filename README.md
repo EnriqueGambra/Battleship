@@ -6,7 +6,9 @@ How the game works:
 - After user's turn, CPU guesses where the user's battleship is
 - Continues to go back and forth until either the user's ships have been destroyed, or the CPU's ships have been destroyed
 
+Added Implementation:
+- CPU now has an arraylist of guesses that it will check before making an official guess. Makes the CPU tougher.
+
 Future Implementation:
 - Make it a GUI version
-- Make CPU harder, maybe create an array of guesses and then check that array before making another guess so it doesn't repeat itself
 - Also, make it more aware of hits. If it gets a hit -- store the coordinate in an array and have CPU shoot around that area
